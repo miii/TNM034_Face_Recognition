@@ -11,6 +11,7 @@ function id = tnm034(im)
     % Find mouthMap
     mouthMap = getMouthMap(YCbCr);
     mouthMap = mouthMap./max(max(mouthMap));
+    figure
     imshow(mouthMap);
     
     % Find faceMask
@@ -19,8 +20,8 @@ function id = tnm034(im)
     
     % Combo of eyeMap and faceMask
     maskedEyeMap = eyeMap.*faceMask;
-    figure
-    imshow(im2double(im).*faceMask);
+    %figure
+    %imshow(im2double(im).*faceMask);
     
     brightestPoint = max(max(maskedEyeMap));
     
@@ -28,8 +29,8 @@ function id = tnm034(im)
     
     maskedEyeMap(maskedEyeMap < 0.8) = 0;
     
-    figure
-    imshow(maskedEyeMap);
+    %figure
+    %imshow(maskedEyeMap);
 
     
     % Return placeholder

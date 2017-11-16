@@ -6,9 +6,6 @@ function [maskWithoutHoles] = getFaceMask(YCbCr, threshold)
     mask(mask < threshold) = 0;
     mask(mask >= threshold) = 255;
     
-    figure
-    imshow(mask)
-    
     maskWithoutHoles = im2double(imfill(mask, 'holes'));
 end
 
