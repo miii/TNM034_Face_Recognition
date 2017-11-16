@@ -8,6 +8,11 @@ function id = tnm034(im)
     eyeMapL = EyeMapL(YCbCr);
     eyeMap = eyeMapL .* eyeMapC;
     
+    % Find mouthMap
+    mouthMap = getMouthMap(YCbCr);
+    mouthMap = mouthMap./max(max(mouthMap));
+    imshow(mouthMap);
+    
     % Find faceMask
     thres = 130;
     faceMask = getFaceMask(YCbCr, thres);
