@@ -1,5 +1,4 @@
-close all
-
+function [meanFace, weights, u] = PSA()
 n1 = 300;
 n2 = 250;
 k = 5;
@@ -26,7 +25,7 @@ Diff2MeanFace = Images-meanFace;
 [eigenVectors,~] = eigs(transpose(Diff2MeanFace)*Diff2MeanFace, k);
 u = Diff2MeanFace*eigenVectors; 
 
-% Show the eigen faces
+% NOT NEEDED, just to show the eigen faces
 for i = 1:k
     first = reshape(u(:,i),[n1,n2]);    
     %figure
@@ -36,9 +35,16 @@ end
 % Calculate the weights
 weights = transpose(u)*Diff2MeanFace;
 
-% How to reconstruct an image in the database
+% NOT NEEDED, just to check how to
+% reconstruct an image in the database
 I = meanFace + u*weights(:,5);
 I = reshape(I, [n1,n2]);
+%figure
+%imshow(I, [])
 
-figure
-imshow(I, [])
+end
+
+
+
+
+
