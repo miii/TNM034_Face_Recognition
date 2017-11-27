@@ -35,7 +35,7 @@ function bestPoint = FindEyes(eyeMap)
     for i = 1:length(points)
         if i == 1
             bestPoint = points(i);
-        elseif bestPoint.delta(1) > points(i).delta(1)
+        elseif bestPoint.delta(1) > points(i).delta(1) && points(i).eucl > 100
             bestPoint = points(i);
         end
     end
