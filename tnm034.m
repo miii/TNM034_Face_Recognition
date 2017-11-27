@@ -13,22 +13,18 @@ function id = tnm034(im)
     thres = 130;
     faceMask = getFaceMask(YCbCr, thres);
     
-    faceMaskYCbCr = rgb2ycbcr(faceMaskRGB .* uint8(faceMask));
+    faceMaskYCbCr = rgb2ycbcr(im .* uint8(faceMask));
     
     % Find mouthMap
     mouthMap = getMouthMap(faceMaskYCbCr);
     mouthMap = Normalize(mouthMap);
     
-    figure
-    imshow(eyeMap);
-    
-    figure
-    imshow(mouthMap);
-    
     % Combo of eyeMap and faceMask
     maskedEyeMap = eyeMap.*faceMask;
     %figure
     %imshow(im2double(im).*faceMask);
+    
+    FindEyes(maskedEyeMap);
     
     brightestPoint = max(max(maskedEyeMap));
     
