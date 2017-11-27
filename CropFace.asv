@@ -1,0 +1,19 @@
+function croppedImage = CropFace(im, rotationPoint)
+    padding = 50;
+
+    diff = [230, 160];
+    rp = [rotationPoint.y + padding, rotationPoint.x + padding];
+    
+    height = 2 * diff(1);
+    width = 2 * diff(2);
+    
+    cropMinBoundary = rp - diff;
+    % cropMinBoundary(cropMinBoundary < 0) = 0;
+    
+    im = padarray(im, padding);
+    croppedImage = imcrop(im, [cropMinBoundary(2), cropMinBoundary(1), width, height]);
+    
+    figure
+    imshow(croppedImage
+end
+

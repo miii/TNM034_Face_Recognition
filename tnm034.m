@@ -1,7 +1,5 @@
 function id = tnm034(im)
     faceImage = FaceDetect(im);
-    figure
-    imshow(faceImage);
 
     %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
     %%%% FACE RECOGNITION PIPELINE %%%%
@@ -13,7 +11,7 @@ function id = tnm034(im)
     
     % Face Recognition using the calculated weights and eigen faces.
     % USES MANUALLY RECONSTRUCTED IMAGE ATM, CHANGE LATER 
-    newImage = rgb2gray(im2double(imread('DBegen/db1_05.jpg')));
+    newImage = rgb2gray(im2double(FaceDetect(imread('DB1/db1_05.jpg'))));
     newImage = newImage(:);
 
     newDiff2Mean = newImage - meanFace;
@@ -26,7 +24,7 @@ function id = tnm034(im)
     % NOT EXIST IN THE DATABASE.
     
     % Return placeholder
-    id = index;
+     id = index;
 
 end
 
