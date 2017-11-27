@@ -39,13 +39,5 @@ function bestPoint = FindEyes(eyeMap)
             bestPoint = points(i);
         end
     end
-    
-    temp = eyeMap * 0.2;
-    
-    temp(bestPoint.p1(1), bestPoint.p1(2)) = 255;
-    temp(bestPoint.p2(1), bestPoint.p2(2)) = 255;
-    
-    figure
-    imshow(temp);
 end
 
