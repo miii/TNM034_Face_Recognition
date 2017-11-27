@@ -3,6 +3,9 @@ function id = tnm034(im)
     %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
     %%%% FACE DETECTION PIPELINE %%%%
     %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+    
+    % Gray World Compensation
+    %im = grayWorldCompensation(im); %Perhaps use later?
 
     % Transform colorspace to YCbCr
     YCbCr = rgb2ycbcr(im);
