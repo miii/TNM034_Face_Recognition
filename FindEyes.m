@@ -1,23 +1,51 @@
-function [test] = FindEyes(eyeMap)
+function bestPoint = FindEyes(eyeMap)
     pixelated = imresize(eyeMap, 0.25);
-    % pixelated = imresize(eyeMap, 0.0625);
     
     BW = DynamicBinarize(pixelated, 10);
+    BW = imresize(BW, size(eyeMap));
     
-    % m = [0 1 0 0 0 0 0 0 0 0 0 0 0 1 0; 1 2 1 0 0 0 0 0 0 0 0 0 1 2 1; 0 1 0 0 0 0 0 0 0 0 0 0 0 1 0] ./ 10;
-    % BW3 = conv2(double(BW), double(m), 'same');
+    B = bwboundaries(BW, 8);
+    coord = [];
     
-    % BWmerged = (BW ./ 2 + BW3 ./ 2);
-    % BWmergedBin = DynamicBinarize(BWmerged, 4);
+    for n = 1:length(B)
+        x = mean(B{n}(:, 1));
+        y = mean(B{n}(:, 2));
+        
+        coord = [coord; round([x y])];
+    end
     
-    BW = eyeMap - imresize(BW, size(eyeMap));
+    points = [];
+    
+    for i = 1:length(coord)
+        for j = (i+1):length(coord)
+            delta = abs(coord(i, :) - coord(j, :));
+            euclDist = sqrt(delta(1)^2 + delta(2)^2);
+            
+            point.p1 = coord(i, :);
+            point.p2 = coord(j, :);
+            point.delta = delta;
+            point.eucl = euclDist;
+            
+            points = [points point];
+        end
+    end
+    
+    bestPoint = 0;
+    
+    for i = 1:length(points)
+        if i == 1
+            bestPoint = points(i);
+        elseif bestPoint.delta(1) > points(i).delta(1)
+            bestPoint = points(i);
+        end
+    end
+    
+    temp = eyeMap * 0.2;
+    
+    temp(bestPoint.p1(1), bestPoint.p1(2)) = 255;
+    temp(bestPoint.p2(1), bestPoint.p2(2)) = 255;
     
     figure
-    imshow(BW, 'InitialMagnification', 'fit')
-
-    %figure
-    %imshow(BWmergedBin, 'InitialMagnification', 'fit')
-    
-    test = 0;
+    imshow(temp);
 end
 

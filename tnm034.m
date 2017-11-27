@@ -58,6 +58,7 @@ function id = tnm034(im)
 
     [minDiff, index] = min(sum(sqrt((weights-newWeight).^2)));
     
+    
     % ADD CHECK OF minDiff TO BE ABLE TO REJECT A PERSON THAT DOES
     % NOT EXIST IN THE DATABASE.
     
