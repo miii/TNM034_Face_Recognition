@@ -1,5 +1,5 @@
 function [meanFace, weights, u] = PSA()
-k = 14;
+k = 16;
 n1 = 0;
 n2 = 0;
 
@@ -11,6 +11,11 @@ for i = 1:k
     else
         filename = strcat(strcat('DB1/db1_',num2str(i)),'.jpg');
     end
+    
+    if ~exist(filename, 'file')
+        continue;
+    end
+    
     im = rgb2gray(im2double(FaceDetect(imread(filename))));
     [n1, n2] = size(im);
     Images(:, i) = im(:);

@@ -1,16 +1,21 @@
 clear all
 close all
 clc
-% 
-% im1 = imread('DB1/db1_02.jpg');
-% im2 = imread('DB1/db1_03.jpg');
-% im3 = imread('DB1/db1_04.jpg');
-% im4 = imread('DB1/db1_08.jpg');
-% im5 = imread('DB1/db1_10.jpg');
-% tnm034(im1)
-% % tnm034(im2);
-% % tnm034(im3);
-% % tnm034(im4);
-% % tnm034(im5);
 
-FaceDetect(imread('DB1/db1_15.jpg'));
+k = 16;
+
+for i = 1:k
+    filename = strcat(strcat('DB1/db1_', pad(num2str(i), 2, 'left', '0')),'.jpg');
+    
+    if ~exist(filename, 'file')
+        continue;
+    end
+    
+    im = imread(filename);
+   
+    id = tnm034(im);
+    res = [i, id]
+    
+end
+
+%imshow(FaceDetect(imread('DB1/db1_15.jpg')));

@@ -11,7 +11,7 @@ function id = tnm034(im)
     
     % Face Recognition using the calculated weights and eigen faces.
     % USES MANUALLY RECONSTRUCTED IMAGE ATM, CHANGE LATER 
-    newImage = rgb2gray(im2double(FaceDetect(imread('DB1/db1_05.jpg'))));
+    newImage = rgb2gray(im2double(FaceDetect(im)));
     newImage = newImage(:);
 
     newDiff2Mean = newImage - meanFace;

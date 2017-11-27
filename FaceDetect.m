@@ -31,6 +31,7 @@ function croppedImage = PrepareFace(im)
     %imshow(im2double(im).*faceMask);
     
     eyes = FindEyes(maskedEyeMap);
+    
     [rotatedImage, rotationPoint] = RotateFace(im, eyes);
     
     [scaledImage, scale] = ScaleFace(rotatedImage, eyes);
