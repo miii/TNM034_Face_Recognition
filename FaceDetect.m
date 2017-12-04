@@ -3,6 +3,8 @@ function croppedImage = PrepareFace(im)
     %%%% FACE DETECTION PIPELINE %%%%
     %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
     
+    faceSize = zeros(461, 321, 3);
+    
     % Gray World Compensation
     %im = grayWorldCompensation(im); %Perhaps use later?
 
@@ -18,19 +20,30 @@ function croppedImage = PrepareFace(im)
     % Find faceMask
     thres = 130;
     faceMask = getFaceMask(YCbCr, thres);
-    
-    faceMaskYCbCr = rgb2ycbcr(im .* uint8(faceMask));
-    
+
     % Find mouthMap
-    mouthMap = getMouthMap(faceMaskYCbCr);
-    mouthMap = NormalizeMap(mouthMap);
-    
+%     faceMaskYCbCr = rgb2ycbcr(im .* uint8(faceMask));
+%     mouthMap = getMouthMap(faceMaskYCbCr);
+%     mouthMap = NormalizeMap(mouthMap);
+
     % Combo of eyeMap and faceMask
     maskedEyeMap = eyeMap.*faceMask;
+
     %figure
     %imshow(im2double(im).*faceMask);
-    
+
     eyes = FindEyes(maskedEyeMap);
+    if (~isstruct(eyes))
+        croppedImage = -1;
+        return;
+    end
+    
+    % Show detected eyes with red dots
+%     eyesTemp = im * 0.15;
+%     eyesTemp(eyes.p1(1), eyes.p1(2), :) = 255;
+%     eyesTemp(eyes.p2(1), eyes.p2(2), :) = 255;
+%     figure;
+%     imshow(eyesTemp);
     
     [rotatedImage, rotationPoint] = RotateFace(im, eyes);
     
@@ -41,5 +54,9 @@ function croppedImage = PrepareFace(im)
     rotationPoint.y = round(rotationPoint.y .* scale);
     
     croppedImage = CropFace(scaledImage, rotationPoint);
+    
+    if (length(croppedImage(:)) ~= length(faceSize(:)))
+        croppedImage = -1;
+    end
 end
 

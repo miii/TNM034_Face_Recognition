@@ -7,6 +7,11 @@ function bestPoint = FindEyes(eyeMap)
     B = bwboundaries(BW, 8);
     coord = [];
     
+    if length(B) < 2
+        bestPoint = -1;
+        return;
+    end
+    
     for n = 1:length(B)
         x = mean(B{n}(:, 1));
         y = mean(B{n}(:, 2));

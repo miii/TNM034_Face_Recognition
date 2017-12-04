@@ -16,7 +16,7 @@ for i = 1:k
         continue;
     end
     
-    im = rgb2gray(im2double(FaceDetect(imread(filename))));
+    im = rgb2gray(im2double(grayWorldCompensation(FaceDetect(imread(filename)))));
     [n1, n2] = size(im);
     Images(:, i) = im(:);
 end
@@ -32,11 +32,11 @@ Diff2MeanFace = Images-meanFace;
 u = Diff2MeanFace*eigenVectors;
 
 % NOT NEEDED, just to show the eigen faces
-for i = 1:k
-    first = reshape(u(:,i),[n1, n2]);    
-    figure
-    imshow(first,[]);
-end
+% for i = 1:k
+%     first = reshape(u(:,i),[n1, n2]);    
+%     figure
+%     imshow(first,[]);
+% end
 
 % Calculate the weights
 weights = transpose(u)*Diff2MeanFace;
